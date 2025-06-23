@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Engineering – Full Guide</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Pattern for header */
+    .bg-pattern {
+      background-image: radial-gradient(circle at center, rgba(255,255,255,.05) 1px, transparent 0);
+      background-size: 20px 20px;
+    }
+    /* General styles for headings to match design */
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    /* Custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 text-gray-900 p-4 sm:p-6 lg:p-8">
+
+  <div class="max-w-7xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+    <!-- Header -->
+    <header class="relative bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-8 sm:p-10 rounded-t-3xl text-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 leading-tight">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-teal-400">
+          📘 Prompt Engineering
+        </span>
+      </h1>
+      <p class="text-lg sm:text-xl font-medium opacity-90">A Complete Guide to Mastering AI Prompts</p>
+      <div class="absolute inset-0 bg-pattern opacity-10"></div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="lg:grid lg:grid-cols-4 gap-8 p-6 sm:p-8 lg:p-12">
+      <!-- Table of Contents -->
+      <aside class="lg:col-span-1 mb-8 lg:mb-0">
+        <!-- AI Symbol Photo -->
+        <div class="mb-6 rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gray-100 flex items-center justify-center p-4" style="min-height: 200px;">
+          <!-- PHOTO FILE START -->
+          <img
+            src="neural.png"
+            alt="Artificial Neural Network diagram for corporate reports"
+            class="w-full h-auto object-cover rounded-lg"
+          />
+          <!-- PHOTO FILE END -->
+        </div>
+
+        <div class="sticky top-8 bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+            <span class="mr-3 text-yellow-500">💡</span> Table of Contents
+          </h2>
+          <nav>
+            <ul class="space-y-3" id="toc-nav">
+              <li><a href="#intro" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🧠</span> Introduction</a></li>
+              <li><a href="#core" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🧩</span> Powerful Prompt Structure</a></li>
+              <li><a href="#cfg" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🎛️</span> CFG, Seed, Aspect Ratio</a></li>
+              <li><a href="#camera" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">📸</span> Camera Terminology</a></li>
+              <li><a href="#lighting" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">💡</span> Lighting Vocabulary</a></li>
+              <li><a href="#style" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🎨</span> Style Vocabulary</a></li>
+              <li><a href="#aspect-ratio" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">📐</span> Aspect Ratio Options</a></li>
+              <li><a href="#character-details" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">👤</span> Character & Pose Details</a></li>
+              <li><a href="#object-details" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">📦</span> Object & Prop Details</a></li>
+              <li><a href="#atmospheric-details" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">☁️</span> Atmospheric & Environ. Details</a></li>
+              <li><a href="#consistency" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🧬</span> Consistency Across Scenes</a></li>
+              <li><a href="#template" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">📋</span> Prompt Template</a></li>
+              <li><a href="#optimize" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🧠</span> AI as Visual Compiler</a></li>
+              <li><a href="#noise-progression" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">⚡</span> Understanding Noise</a></li>
+              <li><a href="#bonus" class="flex items-center p-2 rounded-lg transition-all duration-300 text-gray-700 hover:bg-blue-100 hover:text-blue-700"><span class="mr-3">🏁</span> Bonus Exercises</a></li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Infographic Content -->
+      <main class="lg:col-span-3 space-y-12">
+        <!-- Introduction -->
+        <section id="intro" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-4 flex items-center">
+            <span class="mr-3 text-blue-500">🧠</span> Introduction
+          </h2>
+          <p class="text-lg leading-relaxed">
+            Prompt engineering is part cinematography, part scripting, part design. This guide walks you through how to master cinematic AI prompts with consistency, detail, and visual storytelling.
+          </p>
+        </section>
+
+        <!-- The Structure of a Powerful Prompt -->
+        <section id="core" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">🧩</span> The Structure of a Powerful Prompt
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 shadow-sm">
+              <h3 class="font-semibold text-xl text-blue-800 mb-2">Subject:</h3>
+              <p class="text-gray-700 italic">"A female rose gold cyborg with glowing eyes"</p>
+            </div>
+            <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 shadow-sm">
+              <h3 class="font-semibold text-xl text-blue-800 mb-2">Environment:</h3>
+              <p class="text-gray-700 italic">"On a battlefield at golden hour"</p>
+            </div>
+          </div>
+          <p class="text-lg leading-relaxed mt-6">
+            Explore the expanded vocabularies below for a richer prompting experience:
+          </p>
+        </section>
+
+        <!-- Camera Framing Vocabulary -->
+        <section id="camera" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">📸</span> Camera Framing Vocabulary
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-purple-50 p-4 rounded-xl border border-purple-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-purple-800 mb-2">Shot Types:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Extreme Close-Up (ECU)</li>
+                <li>Close-Up (CU)</li>
+                <li>Medium Close-Up (MCU)</li>
+                <li>Medium Shot (MS)</li>
+                <li>Cowboy Shot</li>
+                <li>Medium Long Shot (MLS)</li>
+                <li>Long Shot (LS) / Full Shot (FS)</li>
+                <li>Extreme Long Shot (ELS)</li>
+                <li>Establishing Shot</li>
+              </ul>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-xl border border-purple-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-purple-800 mb-2">Camera Angles & Perspectives:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Low-Angle Shot</li>
+                <li>High-Angle Shot</li>
+                <li>Eye-Level Shot</li>
+                <li>Bird's-Eye View / Overhead Shot</li>
+                <li>Worm's-Eye View</li>
+                <li>Dutch Angle / Canted Angle</li>
+                <li>Over-the-Shoulder Shot (OTS)</li>
+                <li>Point of View (POV) Shot</li>
+              </ul>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-xl border border-purple-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-purple-800 mb-2">Camera Movement & Focus:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Dolly-in / Dolly-out</li>
+                <li>Dolly Zoom / Vertigo Effect</li>
+                <li>Pan (left/right)</li>
+                <li>Tilt (up/down)</li>
+                <li>Tracking Shot</li>
+                <li>Crane Shot / Jib Shot</li>
+                <li>Handheld Shot</li>
+                <li>Static Shot</li>
+                <li>Shallow Depth of Field</li>
+                <li>Deep Depth of Field</li>
+                <li>Bokeh Effect</li>
+                <li>Sharp Focus / Pin Sharp</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lighting Vocabulary -->
+        <section id="lighting" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">💡</span> Lighting Vocabulary
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-orange-800 mb-2">General & Directional:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Cinematic Lighting</li>
+                <li>Dramatic Lighting</li>
+                <li>Soft Lighting</li>
+                <li>Hard Lighting</li>
+                <li>Natural Light</li>
+                <li>Artificial Light</li>
+                <li>Studio Lighting</li>
+                <li>Backlighting</li>
+                <li>Side Lighting</li>
+                <li>Front Lighting</li>
+                <li>Top-Down Lighting</li>
+                <li>Rim Lighting</li>
+                <li>Underlighting</li>
+              </ul>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-orange-800 mb-2">Qualitative & Environmental:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Volumetric Lighting / God Rays</li>
+                <li>Golden Hour Light</li>
+                <li>Blue Hour Light</li>
+                <li>Twilight Light</li>
+                <li>Moonlight</li>
+                <li>Dappled Light</li>
+                <li>Diffused Light</li>
+                <li>Chiaroscuro</li>
+                <li>High-Key Lighting</li>
+                <li>Low-Key Lighting</li>
+                <li>Spotlight</li>
+                <li>Street Light</li>
+              </ul>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-orange-800 mb-2">Specific & Color:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Warm Lighting</li>
+                <li>Cool Lighting</li>
+                <li>Neon Lighting</li>
+                <li>Fluorescent Lighting</li>
+                <li>Candlelight</li>
+                <li>Firelight</li>
+                <li>Ambient Light</li>
+                <li>Contre-jour</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Style Vocabulary -->
+        <section id="style" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">🎨</span> Style Vocabulary
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-green-800 mb-2">Art Styles & Movements:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Photorealistic / Hyper-detailed</li>
+                <li>Realistic / Surreal / Abstract</li>
+                <li>Impressionistic / Cubist</li>
+                <li>Anime / Cartoon / Comic Book</li>
+                <li>Pixel Art / Isometric</li>
+                <li>Cyberpunk / Steampunk / Gothic</li>
+                <li>Baroque / Rococo / Neoclassical</li>
+                <li>Minimalist / Maximalist</li>
+                <li>Film Noir / Pop Art</li>
+                <li>Concept Art / Illustration / Sketch</li>
+                <li>Watercolor / Oil Painting / Pastel</li>
+                <li>Charcoal Drawing / Pen & Ink</li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-green-800 mb-2">Visual Quality & Effects:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Ultra 4K / 8K / 16K</li>
+                <li>Cinematic / Masterpiece / Award-winning</li>
+                <li>Stunning / Beautiful / Epic</li>
+                <li>Octane Render / Unreal Engine</li>
+                <li>V-Ray / Redshift / ZBrush</li>
+                <li>CGI / Digital Painting</li>
+                <li>Volumetric Haze / Fog / Mist</li>
+                <li>Dust / Rain / Snow</li>
+                <li>Lens Flare / Chromatic Aberration</li>
+                <li>Film Grain / Vintage / Distressed</li>
+                <li>Glitch Art / Low Poly</li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-green-800 mb-2">Compositional & Aesthetic:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Rule of Thirds</li>
+                <li>Leading Lines</li>
+                <li>Golden Ratio / Fibonacci Spiral</li>
+                <li>Symmetrical / Asymmetrical</li>
+                <li>Negative Space</li>
+                <li>Focal Point</li>
+                <li>Vibrant Colors / Muted Colors</li>
+                <li>Monochromatic / Duotone</li>
+                <li>Gritty / Clean</li>
+                <li>Dreamlike / Nightmarish</li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-xl border border-green-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-green-800 mb-2">Skin & Material Textures:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Photorealistic skin, Hyperrealistic skin</li>
+                <li>Cartoon skin, Anime skin, Comic book skin</li>
+                <li>Porcelain skin, Doll-like skin</li>
+                <li>Gritty skin, Weathered skin, Scarred skin</li>
+                <li>Metallic skin, Translucent skin, Glossy skin</li>
+                <li>Subsurface scattering (SSS)</li>
+                <li>Pores, Wrinkles, Freckles, Blemishes</li>
+                <li>Smooth, Silky, Rough, Dry, Oily</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aspect Ratio Options -->
+        <section id="aspect-ratio" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">📐</span> Aspect Ratio Options
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-blue-800 mb-2">Common Ratios:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li><code class="font-mono">1:1</code> (Square)</li>
+                <li><code class="font-mono">4:3</code> (Classic TV, some photography)</li>
+                <li><code class="font-mono">3:2</code> (Classic Photography)</li>
+                <li><code class="font-mono">16:9</code> (Modern TV, Video, Wide Photography)</li>
+                <li><code class="font-mono">21:9</code> (Ultrawide Monitor, CinemaScope)</li>
+                <li><code class="font-mono">9:16</code> (Vertical Video, Mobile Portrait)</li>
+                <li><code class="font-mono">4:5</code> (Vertical Photography, Instagram Portrait)</li>
+              </ul>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-blue-800 mb-2">Cinematic & Other:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li><code class="font-mono">2.35:1</code> (Anamorphic Film, Panavision)</li>
+                <li><code class="font-mono">2.39:1</code> (Widescreen Cinema)</li>
+                <li><code class="font-mono">2.00:1</code> (Univisium)</li>
+                <li><code class="font-mono">1.85:1</code> (Standard Widescreen Film)</li>
+                <li><code class="font-mono">5:4</code> (Large Format Photography)</li>
+                <li><code class="font-mono">5:3</code> (European Widescreen)</li>
+              </ul>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-blue-800 mb-2">Usage Tip:</h3>
+              <p class="text-sm text-gray-800">
+                Always specify aspect ratio as <code class="font-mono">--ar=WIDTH:HEIGHT</code> in your prompt. Choosing the right aspect ratio greatly impacts the composition and feeling of your generated image.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Character & Pose Details -->
+        <section id="character-details" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">👤</span> Character & Pose Details
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-yellow-800 mb-2">Facial Expressions:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Happy, Sad, Angry, Surprised</li>
+                <li>Thoughtful, Determined, Worried</li>
+                <li>Mischievous, Serene, Intense</li>
+                <li>Smiling, Frowning, Crying, Laughing</li>
+              </ul>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-yellow-800 mb-2">Poses & Actions:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Standing, Walking, Running, Jumping</li>
+                <li>Sitting, Crouching, Kneeling</li>
+                <li>Fighting, Meditating, Gazing</li>
+                <li>Pointing, Holding [object]</li>
+                <li>Dynamic pose, Static pose</li>
+                <li>Action shot, Contemplative, Heroic, Defeated</li>
+              </ul>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-yellow-800 mb-2">Body Types & Features:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Muscular, Slender, Curvy, Athletic</li>
+                <li>Tall, Short, Elderly, Youthful</li>
+                <li>Hair details (long, short, curly, straight, braided, color)</li>
+                <li>Eye details (color, shape, glow)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Object & Prop Details -->
+        <section id="object-details" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">📦</span> Object & Prop Details
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-sm">
+              <h3 class="font-semibold text-lg text-gray-800 mb-2">General Qualities:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Worn, New, Antique, Futuristic</li>
+                <li>Rustic, Sleek, Ornate, Minimalist</li>
+                <li>Glowing, Dull, Sharp, Blunt</li>
+                <li>Fragile, Sturdy, Heavy, Light</li>
+              </ul>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-sm">
+              <h3 class="font-semibold text-lg text-gray-800 mb-2">Materials & Textures:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Wooden, Stone, Metallic, Glass, Crystal</li>
+                <li>Fabric (silk, denim, leather), Paper, Plastic</li>
+                <li>Aged, Rusted, Polished, Matte, Shiny</li>
+                <li>Rough, Smooth, Textured, Embossed</li>
+              </ul>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-sm">
+              <h3 class="font-semibold text-lg text-gray-800 mb-2">Animals:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Fur texture (fluffy, sleek, coarse)</li>
+                <li>Scales (smooth, rough, iridescent)</li>
+                <li>Feathers (soft, ruffled, iridescent)</li>
+                <li>Species-specific details (mane, antlers, claws, tusks)</li>
+                <li>Majestic, Fierce, Playful, Gentle, Wild, Domesticated</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Atmospheric & Environmental Details -->
+        <section id="atmospheric-details" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">☁️</span> Atmospheric & Environmental Details
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-cyan-800 mb-2">Weather & Phenomena:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Rainy, Stormy, Foggy, Sunny, Cloudy, Snowy</li>
+                <li>Misty, Windy, Calm, Thunderstorm, Blizzard</li>
+                <li>Aurora Borealis, Starry Sky, Eclipse, Rainbow</li>
+              </ul>
+            </div>
+            <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-cyan-800 mb-2">Time of Day & Lighting:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Golden Hour, Blue Hour, Twilight</li>
+                <li>Sunrise, Sunset, Midday, Midnight</li>
+                <li>Dawn, Dusk</li>
+                <li>Moonlight, Starlight</li>
+              </ul>
+            </div>
+            <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 shadow-sm">
+              <h3 class="font-semibold text-lg text-cyan-800 mb-2">General Ambiance & Elements:</h3>
+              <ul class="list-disc pl-5 text-gray-800 text-sm space-y-1">
+                <li>Ethereal, Eerie, Vibrant, Somber, Peaceful</li>
+                <li>Chaotic, Mysterious, Oppressive, Serene, Bustling</li>
+                <li>Volumetric dust, Falling embers, Swirling leaves</li>
+                <li>Light rays, Shimmering water, Reflections</li>
+                <li>Overgrown, Lush, Arid, Barren</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Consistency Across Scenes -->
+        <section id="consistency" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">🧬</span> Consistency Across Scenes
+          </h2>
+          <ul class="list-disc pl-6 space-y-3 text-lg leading-relaxed">
+            <li class="flex items-start">
+              <span class="text-green-600 mr-2 mt-1">✓</span> Set a static <code class="bg-gray-100 text-green-700 font-semibold">seed</code> for all related scenes
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-600 mr-2 mt-1">✓</span> Repeat key descriptions (e.g., "rose gold armor, cracked visor")
+            </li>
+            <li class="flex items-start">
+              <span class="text-green-600 mr-2 mt-1">✓</span> Use ControlNet or Image-to-Image for pose retention
+            </li>
+          </ul>
+        </section>
+
+        <!-- Prompt Template -->
+        <section id="template" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">📋</span> Prompt Template
+          </h2>
+          <div class="relative bg-gray-800 text-gray-200 p-6 rounded-xl shadow-inner">
+            <pre class="whitespace-pre-wrap break-words text-sm font-mono leading-relaxed pr-10">
+              <code class="block bg-transparent p-0">
+                Cinematic 4K ultra-realistic image of [Subject],
+                in a [Lighting Type] setting during [Time of Day],
+                captured in a [Camera Shot Type] with [Lens Detail],
+                [Environment Description],
+                featuring [Visual Effect or Motion],
+                photorealistic textures, volumetric lighting, [Mood Descriptor],
+                --seed=12345 --cfg=9 --ar=16:9
+
+                E.G.
+                Cinematic 4K ultra-realistic image of a female rose gold cyborg with glowing blue eyes,
+                in backlit golden hour light during sunset,
+                captured in a dolly-in low-angle close-up with lens flare and shallow depth of field,
+                on a stormy mountain ridge,
+                featuring dust particles and falling embers,
+                photorealistic textures, volumetric haze, dramatic mood,
+                --seed=90210 --cfg=10 --ar=16:9
+              </code>
+            </pre>
+            <button
+              onclick="copyToClipboard(this.previousElementSibling.innerText)"
+              class="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg shadow-md transition-colors duration-300 flex items-center"
+              title="Copy to Clipboard"
+            >
+              <span class="mr-2">📄</span>Copy
+            </button>
+          </div>
+        </section>
+
+        <!-- AI as a Visual Compiler -->
+        <section id="optimize" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-4 flex items-center">
+            <span class="mr-3 text-blue-500">🧠</span> AI as a Visual Compiler
+          </h2>
+          <p class="text-lg leading-relaxed">
+            The process is similar to programming. The prompt becomes "tokenized," embedded in latent space, and decoded into high-resolution pixels using a diffusion process—turning language into light, shape, and detail.
+          </p>
+        </section>
+
+        <!-- Understanding Noise: The Journey to Image Creation -->
+        <section id="noise-progression" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">⚡</span> Understanding Noise: The Journey to Image Creation
+          </h2>
+          <p class="text-lg leading-relaxed mb-4">
+            AI image generation, especially with diffusion models, starts from a canvas of pure random "noise" (like TV static). The model then iteratively "denoises" this static, guided by your prompt, gradually transforming the random pixels into a coherent and detailed image.
+          </p>
+          <p class="text-lg leading-relaxed mb-6">
+            Below is a conceptual progression illustrating how an image might evolve from initial noise to a final clear image during the denoising process.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Noise Progression Stage 1 -->
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-sm flex flex-col items-center text-center">
+              <h3 class="font-semibold text-lg text-gray-800 mb-3">1. Initial Noise</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Pure static with vague color fields; the subject is indistinguishable.
+              </p>
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <!-- PHOTO FILE START -->
+                <img src="noise.png" alt="Initial Noise" class="w-full h-full object-cover rounded-lg" />
+                <!-- PHOTO FILE END -->
+              </div>
+            </div>
+
+            <!-- Noise Progression Stage 2 -->
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-sm flex flex-col items-center text-center">
+              <h3 class="font-semibold text-lg text-gray-800 mb-3">2. Intermediate Denoising</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Shapes and colors begin to form, hinting at the subject, but still very blurry.
+              </p>
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <!-- PHOTO FILE START -->
+                <img src="intermediate.png" alt="Intermediate Denoising" class="w-full h-full object-cover rounded-lg" />
+                <!-- PHOTO FILE END -->
+              </div>
+            </div>
+
+            <!-- Noise Progression Stage 3 -->
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-300 shadow-sm flex flex-col items-center text-center">
+              <h3 class="font-semibold text-lg text-gray-800 mb-3">3. Final Image</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                The image is fully rendered with crisp details and adherence to the prompt.
+              </p>
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <!-- PHOTO FILE START -->
+                <img src="final.png" alt="Final Image" class="w-full h-full object-cover rounded-lg" />
+                <!-- PHOTO FILE END -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bonus Exercises -->
+        <section id="bonus" class="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 transition-transform transform hover:scale-[1.005]">
+          <h2 class="text-3xl font-bold text-blue-700 mb-6 flex items-center">
+            <span class="mr-3 text-blue-500">🏁</span> Bonus Exercises
+          </h2>
+          <p class="text-lg leading-relaxed mb-4">
+            Practice these exercises to hone your prompt engineering skills!
+          </p>
+          <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200 shadow-sm mb-6">
+            <h3 class="font-semibold text-lg text-yellow-800 mb-2">Practice with Free Image Generators!</h3>
+            <p class="text-base text-gray-700">
+              To further your prompt engineering skills, explore various free-to-use or open-source AI image generation platforms available online. These platforms often provide a "free forever" tier or community access that allows you to experiment with different models and parameters. Search for terms like "free AI art generator" or "open-source image synthesis" to find platforms like Leonardo.AI or DALL-E (check their free tiers). Keep in mind that results may vary from the images generated directly in this guide.
+            </p>
+            <p class="text-base text-gray-700 mt-2">
+              <strong class="text-yellow-900">Understanding Locked Seeds:</strong> For generating consistent sequential scenes, using a "locked seed" (e.g., <code class="bg-yellow-100 text-yellow-900 font-semibold">--seed=90210</code>) is crucial. This fixed number ensures the initial noise pattern remains the same across different prompts, helping to maintain visual consistency and create a cohesive narrative flow, similar to an "AI trailer."
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Exercise 1 -->
+            <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 shadow-sm flex flex-col items-center text-center">
+              <h3 class="font-semibold text-xl text-purple-800 mb-3">1. Different Lighting Styles (Dawn)</h3>
+              <p class="text-sm text-gray-700 mb-4">
+                Example Prompt: <code>Cinematic 4K ultra-realistic image of a Mulan-inspired young woman with long dark hair, wearing traditional warrior attire with subtle intricate patterns, armed with a sword, her face clearly visible and determined, standing resolutely on a vast, windswept tundra of the Mongolian Mountain Range with a majestic horse by her side. The scene is bathed in the soft, ethereal light of dawn, with a golden-orange glow on the horizon, volumetric mist rising from the cold ground, and a few scattered, ancient rocks. Captured in a wide shot with a shallow depth of field, photorealistic textures, dramatic mood. --seed=90210 --cfg=9 --ar=16:9</code>
+              </p>
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <!-- PHOTO FILE START -->
+                <img src="mountain.png" alt="Mulan at Dawn with Horse" class="w-full h-full object-cover rounded-lg" />
+                <!-- PHOTO FILE END -->
+              </div>
+            </div>
+
+            <!-- Exercise 2 -->
+            <div class="bg-red-50 p-5 rounded-xl border border-red-200 shadow-sm flex flex-col items-center text-center">
+              <h3 class="font-semibold text-xl text-red-800 mb-3">2. Repeat with CFG 5 (Midday)</h3>
+              <p class="text-sm text-gray-700 mb-4">
+                Example Prompt: <code>Cinematic 4K ultra-realistic image of a Mulan-inspired young woman... her face clearly visible, traveling through a lush, green valley... with a sturdy horse companion... The midday sun casts dappled light... --seed=90210 --cfg=5</code>
+              </p>
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <!-- PHOTO FILE START -->
+                <img src="valley.png" alt="Mulan in Valley with Horse (CFG 5)" class="w-full h-full object-cover rounded-lg" />
+                <!-- PHOTO FILE END -->
+              </div>
+            </div>
+
+            <!-- Exercise 3 -->
+            <div class="bg-teal-50 p-5 rounded-xl border border-teal-200 shadow-sm flex flex-col items-center text-center">
+              <h3 class="font-semibold text-xl text-teal-800 mb-3">3. AI Trailer Scene (Sunset River Crossing)</h3>
+              <p class="text-sm text-gray-700 mb-4">
+                Example Prompt: <code>Cinematic 4K ultra-realistic image of a Mulan-inspired young woman... her face clearly visible and focused, carefully crossing a shallow, rocky river... a loyal horse accompanying her... The sun is setting... --seed=90210 --cfg=10 --ar=16:9</code>
+              </p>
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <!-- PHOTO FILE START -->
+                <img src="sunset.png" alt="Mulan Crossing River with Horse" class="w-full h-full object-cover rounded-lg" />
+                <!-- PHOTO FILE END -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tip Note -->
+        <div class="bg-cyan-50 p-6 rounded-2xl border-l-8 border-cyan-500 shadow-lg text-lg text-gray-800 flex items-start">
+          <span class="mr-4 text-cyan-600 text-2xl">📝</span>
+          <div>
+            <strong class="font-semibold text-cyan-800">Tip:</strong> Save your best prompts with the seed, CFG scale, and image size. This lets you remix later with small tweaks while keeping visual coherence.
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- Footer -->
+    <footer class="w-full bg-blue-700 text-white text-center p-4 rounded-b-3xl">
+      <p class="text-sm">
+        &copy; <span id="current-year"></span> Prompt Engineering Guide. Compiled by Benito Amurao.
+      </p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button
+      id="back-to-top-btn"
+      class="fixed bottom-8 right-8 bg-blue-500 text-white p-3 rounded-full shadow-lg
+             hover:bg-blue-600 transition-all duration-300 transform hover:scale-110 z-50 hidden"
+      title="Back to Top"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-circle">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="m16 12-4-4-4 4"/>
+        <path d="M12 16V8"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    // Utility function to scroll to the very top smoothly
+    const easeInOutQuad = (t, b, c, d) => {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    };
+
+    function scrollToTop() {
+        const startPosition = window.scrollY;
+        const distance = -startPosition;
+        const duration = 1200; // 1.2 seconds
+        let startTime = null;
+
+        function animateScroll(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const progress = currentTime - startTime;
+            const newPosition = easeInOutQuad(progress, startPosition, distance, duration);
+
+            window.scrollTo(0, newPosition);
+
+            if (progress < duration) {
+                requestAnimationFrame(animateScroll);
+            } else {
+                window.scrollTo(0, 0); // Ensure it stops exactly at the top
+            }
+        }
+        requestAnimationFrame(animateScroll);
+    }
+
+    // Back to Top button logic
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        backToTopBtn.classList.remove('hidden');
+      } else {
+        backToTopBtn.classList.add('hidden');
+      }
+    };
+
+    // Smooth scroll for TOC links and active highlight
+    let activeSectionId = '';
+    const sections = document.querySelectorAll('section[id]');
+    const tocLinks = document.querySelectorAll('#toc-nav a');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activeSectionId = entry.target.id;
+            updateTocHighlight();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    function updateTocHighlight() {
+      tocLinks.forEach(link => {
+        if (link.getAttribute('href').substring(1) === activeSectionId) {
+          link.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+          link.classList.remove('text-gray-700', 'hover:bg-blue-100', 'hover:text-blue-700');
+        } else {
+          link.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+          link.classList.add('text-gray-700', 'hover:bg-blue-100', 'hover:text-blue-700');
+        }
+      });
+    }
+
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // On window load, set current year and attach event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+      window.addEventListener('scroll', handleScroll);
+      backToTopBtn.addEventListener('click', scrollToTop);
+    });
+
+  </script>
+</body>
+</html>
